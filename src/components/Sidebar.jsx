@@ -49,7 +49,7 @@ const parentRoutes = [
 const babysitterRoutes = [
   {
     name: "Dashboard",
-    path: "/babysitterdashboard",
+    path: "/dashboard",
     icon: <GridViewIcon />,
   },
   {
