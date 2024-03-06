@@ -209,7 +209,7 @@ const Settings = () => {
 
       <Typography>{profile?.description}</Typography>
       {/* Children table section */}
-      {profile.userType === "parent" && profile.childrens && (
+      {profile.user.userType === "parent" && profile.childrens && (
         <>
           <Typography variant="h6" mt={2}>
             Children
