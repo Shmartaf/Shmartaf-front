@@ -140,191 +140,189 @@ const UserForm = () => {
   };
 
   return (
-    <Form form={form} onFinish={onFinish} layout="vertical">
-      {/* User Details Section */}
-      <Form.Item label="Full Name" name="fullName" required>
-        <Input />
-      </Form.Item>
+    <div style={{ maxHeight: '80vh', overflowY: 'auto', padding: '20px' }}>
+      <Form form={form} onFinish={onFinish} layout="vertical">
+        {/* User Details Section */}
+        <Form.Item label="Full Name" name="fullName" required>
+          <Input />
+        </Form.Item>
 
-      <Form.Item label="Email" name="email" required>
-        <Input type="email" />
-      </Form.Item>
+        <Form.Item label="Email" name="email" required>
+          <Input type="email" />
+        </Form.Item>
 
-      <Form.Item label="Password" name="password" required>
-        <Input.Password />
-      </Form.Item>
+        <Form.Item label="Password" name="password" required>
+          <Input.Password />
+        </Form.Item>
 
-      <Form.Item label="City" name="city" required>
-        <Input />
-      </Form.Item>
+        <Form.Item label="City" name="city" required>
+          <Input />
+        </Form.Item>
 
-      <Form.Item label="Street" name="street" required>
-        <Input />
-      </Form.Item>
+        <Form.Item label="Street" name="street" required>
+          <Input />
+        </Form.Item>
 
-      <Form.Item label="Gender" name="gender" required>
-        <Select>
-          <Select.Option value="male">Male</Select.Option>
-          <Select.Option value="female">Female</Select.Option>
-          <Select.Option value="other">Other</Select.Option>
-        </Select>
-      </Form.Item>
+        <Form.Item label="Gender" name="gender" required>
+          <Select>
+            <Select.Option value="male">Male</Select.Option>
+            <Select.Option value="female">Female</Select.Option>
+            <Select.Option value="other">Other</Select.Option>
+          </Select>
+        </Form.Item>
 
-      <Form.Item label="Phone" name="phone" required>
-        <Input />
-      </Form.Item>
-      <Form.Item label="User Type" name="userType" required>
-        <Radio.Group onChange={(e) => handleUserTypeChange(e.target.value)}>
-          <Radio value="parent">Parent</Radio>
-          <Radio value="babysitter">Babysitter</Radio>
-        </Radio.Group>
-      </Form.Item>
+        <Form.Item label="Phone" name="phone" required>
+          <Input />
+        </Form.Item>
+        <Form.Item label="User Type" name="userType" required>
+          <Radio.Group onChange={(e) => handleUserTypeChange(e.target.value)}>
+            <Radio value="parent">Parent</Radio>
+            <Radio value="babysitter">Babysitter</Radio>
+          </Radio.Group>
+        </Form.Item>
 
-      {/* Parent Section */}
-      {isParent && (
-        <>
-          <Form.Item
-            label="Parent Description"
-            name="parentDescription"
-            required
-          >
-            <TextArea />
-          </Form.Item>
-          <Button
-            type="dashed"
-            onClick={() => {
-              handleAddChild();
-            }}
-            icon={<PlusOutlined />}
-          >
-            Add Another Child
-          </Button>
-          {/* Children Section */}
-          <Form.List name="children">
-            {(fields, { remove }) => (
-              <>
-                {fields.map(({ key, name, fieldKey, ...restField }) => (
-                  <div key={key}>
-                    <Form.Item
-                      label={`Child ${
-                        fields.length === 1 ? "" : key + 1
-                      } Full Name`}
-                      {...restField}
-                      name={[name, "fullName"]}
-                      fieldKey={[fieldKey, "fullName"]}
-                      required
-                    >
-                      <Input />
-                    </Form.Item>
-
-                    <Form.Item
-                      label={`Child ${
-                        fields.length === 1 ? "" : key + 1
-                      } Birthdate`}
-                      {...restField}
-                      name={[name, "birthdate"]}
-                      fieldKey={[fieldKey, "birthdate"]}
-                      required
-                    >
-                      <DatePicker />
-                    </Form.Item>
-
-                    <Form.Item
-                      label={`Child ${
-                        fields.length === 1 ? "" : key + 1
-                      } Needs`}
-                      {...restField}
-                      name={[name, "needs"]}
-                      fieldKey={[fieldKey, "needs"]}
-                      required
-                    >
-                      <Checkbox.Group>
-                        {needsData.map((need) => (
-                          <div key={need.id}>
-                            <Checkbox value={need.id}>{need.needname}</Checkbox>
-                            <Select
-                              defaultValue={3} // Default rating
-                              onChange={(value) =>
-                                handleNeedRatingChange(need.id, value)
-                              }
-                            >
-                              {[1, 2, 3, 4, 5].map((rating) => (
-                                <Select.Option key={rating} value={rating}>
-                                  {rating}
-                                </Select.Option>
-                              ))}
-                            </Select>
-                          </div>
-                        ))}
-                      </Checkbox.Group>
-                    </Form.Item>
-
-                    <Form.Item
-                      label={`Child ${
-                        fields.length === 1 ? "" : key + 1
-                      } gender`}
-                      {...restField}
-                      name={[name, "gender"]}
-                      fieldKey={[fieldKey, "gender"]}
-                      required
-                    >
-                      <Select>
-                        <Select.Option value="male">Male</Select.Option>
-                        <Select.Option value="female">Female</Select.Option>
-                        <Select.Option value="other">Other</Select.Option>
-                      </Select>
-                    </Form.Item>
-
-                    {/* Only show remove button if there are more than one child */}
-
-                    {fields.length > 1 && (
-                      <Button
-                        type="dashed"
-                        onClick={() => remove(name)}
-                        style={{ marginLeft: "8px" }}
-                        icon={<MinusOutlined />}
+        {/* Parent Section */}
+        {isParent && (
+          <>
+            <Form.Item
+              label="Parent Description"
+              name="parentDescription"
+              required
+            >
+              <TextArea />
+            </Form.Item>
+            <Button
+              type="dashed"
+              onClick={() => {
+                handleAddChild();
+              }}
+              icon={<PlusOutlined />}
+            >
+              Add Another Child
+            </Button>
+            {/* Children Section */}
+            <Form.List name="children">
+              {(fields, { remove }) => (
+                <>
+                  {fields.map(({ key, name, fieldKey, ...restField }) => (
+                    <div key={key}>
+                      <Form.Item
+                        label={`Child ${fields.length === 1 ? "" : key + 1
+                          } Full Name`}
+                        {...restField}
+                        name={[name, "fullName"]}
+                        fieldKey={[fieldKey, "fullName"]}
+                        required
                       >
-                        Remove
-                      </Button>
-                    )}
-                  </div>
+                        <Input />
+                      </Form.Item>
+
+                      <Form.Item
+                        label={`Child ${fields.length === 1 ? "" : key + 1
+                          } Birthdate`}
+                        {...restField}
+                        name={[name, "birthdate"]}
+                        fieldKey={[fieldKey, "birthdate"]}
+                        required
+                      >
+                        <DatePicker />
+                      </Form.Item>
+
+                      <Form.Item
+                        label={`Child ${fields.length === 1 ? "" : key + 1
+                          } Needs`}
+                        {...restField}
+                        name={[name, "needs"]}
+                        fieldKey={[fieldKey, "needs"]}
+                        required
+                      >
+                        <Checkbox.Group>
+                          {needsData.map((need) => (
+                            <div key={need.id}>
+                              <Checkbox value={need.id}>{need.needname}</Checkbox>
+                              <Select
+                                defaultValue={3} // Default rating
+                                onChange={(value) =>
+                                  handleNeedRatingChange(need.id, value)
+                                }
+                              >
+                                {[1, 2, 3, 4, 5].map((rating) => (
+                                  <Select.Option key={rating} value={rating}>
+                                    {rating}
+                                  </Select.Option>
+                                ))}
+                              </Select>
+                            </div>
+                          ))}
+                        </Checkbox.Group>
+                      </Form.Item>
+
+                      <Form.Item
+                        label={`Child ${fields.length === 1 ? "" : key + 1
+                          } gender`}
+                        {...restField}
+                        name={[name, "gender"]}
+                        fieldKey={[fieldKey, "gender"]}
+                        required
+                      >
+                        <Select>
+                          <Select.Option value="male">Male</Select.Option>
+                          <Select.Option value="female">Female</Select.Option>
+                          <Select.Option value="other">Other</Select.Option>
+                        </Select>
+                      </Form.Item>
+
+                      {/* Only show remove button if there are more than one child */}
+
+                      {fields.length > 1 && (
+                        <Button
+                          type="dashed"
+                          onClick={() => remove(name)}
+                          style={{ marginLeft: "8px" }}
+                          icon={<MinusOutlined />}
+                        >
+                          Remove
+                        </Button>
+                      )}
+                    </div>
+                  ))}
+                </>
+              )}
+            </Form.List>
+          </>
+        )}
+
+        {/* Babysitter Section */}
+        {isBabysitter && (
+          <>
+            <Form.Item label="Babysitter Skills" name="babysitterSkills" required>
+              <Checkbox.Group>
+                {skillsData.map((skill) => (
+                  <Checkbox key={skill.id} value={[skill.id, skill.skillname]}>
+                    {skill.skillname}
+                  </Checkbox>
                 ))}
-              </>
-            )}
-          </Form.List>
-        </>
-      )}
+              </Checkbox.Group>
+            </Form.Item>
 
-      {/* Babysitter Section */}
-      {isBabysitter && (
-        <>
-          <Form.Item label="Babysitter Skills" name="babysitterSkills" required>
-            <Checkbox.Group>
-              {skillsData.map((skill) => (
-                <Checkbox key={skill.id} value={[skill.id, skill.skillname]}>
-                  {skill.skillname}
-                </Checkbox>
-              ))}
-            </Checkbox.Group>
-          </Form.Item>
+            <Form.Item
+              label="Babysitter Description"
+              name="babysitterDescription"
+              required
+            >
+              <TextArea />
+            </Form.Item>
+          </>
+        )}
 
-          <Form.Item
-            label="Babysitter Description"
-            name="babysitterDescription"
-            required
-          >
-            <TextArea />
-          </Form.Item>
-        </>
-      )}
-
-      {/* Submit Button */}
-      <Form.Item>
-        <Button type="primary" htmlType="submit" className="submitbutton">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+        {/* Submit Button */}
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className="submitbutton">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
   );
 };
 
