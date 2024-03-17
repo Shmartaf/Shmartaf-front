@@ -38,7 +38,7 @@ const Favorites = () => {
             (
               <BabysitterCard
                 key={favorite.babysitter.id}
-                {...favorite.babysitter}
+                {...{"babysitter": favorite.babysitter}}
               />
             )
           ),
