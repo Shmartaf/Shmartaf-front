@@ -6,9 +6,12 @@ import QuickFind from "../components/QuickFind";
 import humanImage from "../assets/human.png";
 import { useContext } from "react";
 import { useAuth } from "../AuthContext";
+// import { useDataContext } from "../context/DataContext";
 
 const ParentDashboard = () => {
+  // const { babysitters } = useDataContext();
   console.log("ParentDashboard");
+  // console.log("babysitters", babysitters);
   //const { user } = useContext(BabysitterContext).state;
   const { user } = useAuth();
   //console.log("user", user.userData.name);
@@ -17,7 +20,7 @@ const ParentDashboard = () => {
       <Header name={user?.userData.user?.name} image={humanImage} />
       <EventsTable />
       <QuickFind />
-      <Map />
+      {/* <Map /> */}
     </Box>
   );
 };

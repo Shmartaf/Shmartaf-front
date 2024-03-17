@@ -31,16 +31,21 @@ const BabysitterCard = (props) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const { fetchParent, fetchBabysitter, babysitters } = useDataContext();
 
+  console.log("babysitters card is in progress: ", props);
+  console.log("Babysitter object: ", props.babysitter);
+
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const babysitt = babysitters.find((b) => b.id === props.id);
+        const babysitt = babysitters.find((b) => b.id === props.babysitter.id);
         setBabysitterDetails(babysitt);
+        console.log("babysitterDetails", babysitterDetails);
       } catch (error) {
         console.error("Error fetching babysitter details:", error);
         setError(error);
       }
     };
+
 
     const checkFavoriteStatus = () => {
       if (user && babysitterDetails) {
@@ -49,11 +54,12 @@ const BabysitterCard = (props) => {
       }
     };
 
-    if (props.id) {
+    if (props.babysitter) {
       fetchDetails();
     }
     checkFavoriteStatus();
-  }, [props.id, babysitterDetails, user]);
+  }, [props]);
+
 
   const toggleFavorite = async () => {
     if (!user || !babysitterDetails) {
@@ -70,7 +76,9 @@ const BabysitterCard = (props) => {
         response = await removeFavoriteBabysitter(user.id, babysitterDetails.id);
       }
       console.log("Favorite status updated", response);
+
       setIsFavorite(!isFav);
+
     } catch (error) {
       console.error("Error toggling favorite:", error);
       setError("Failed to update favorites, please try again.");

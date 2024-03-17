@@ -94,6 +94,10 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // init();
+    setTimeout(() => {
+      findUser(authState.user);
+    }
+      , 1000);
   });
 
   const signUp = async ({ email, password }) => {
