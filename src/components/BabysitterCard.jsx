@@ -58,7 +58,7 @@ const BabysitterCard = (props) => {
       fetchDetails();
     }
     checkFavoriteStatus();
-  }, [props]);
+  }, [props, babysitterDetails, user]);
 
 
   const toggleFavorite = async () => {

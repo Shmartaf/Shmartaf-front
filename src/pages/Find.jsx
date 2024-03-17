@@ -48,11 +48,12 @@ const Find = () => {
 
     return (
       <>
+      {console.log("babysitters from algo:", babysitters)}
         {babysitters &&
           babysitters.map(
             (babysitter) =>
               babysitter && (
-                <BabysitterCard key={babysitter.id} {...babysitter} />
+                <BabysitterCard key={babysitter.id} {...{"babysitter": babysitter}} />
               ),
           )}
       </>
