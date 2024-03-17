@@ -12,7 +12,7 @@ import Box from "@mui/material/Box";
 import StarIcon from "@mui/icons-material/Star";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { get, addFavoriteBabysitter } from "../api";
+import { get, addFavoriteBabysitter, removeFavoriteBabysitter } from "../api";
 import { useAuth } from "../AuthContext";
 import { useDataContext } from "../context/DataContext";
 
@@ -45,65 +45,52 @@ const BabysitterCard = (props) => {
         setError(error);
       }
     };
-    console.log("use effect is in progress: ", props.babysitter);
+
+
+    const checkFavoriteStatus = () => {
+      if (user && babysitterDetails) {
+        const isFav = user.userData.favorites.find(f => f.babysitter.id === babysitterDetails.id);
+        setIsFavorite(!!isFav);
+      }
+    };
+
     if (props.babysitter) {
       fetchDetails();
     }
-    // fetchDetails();
+    checkFavoriteStatus();
   }, [props]);
 
+
   const toggleFavorite = async () => {
-    console.log("user", user);
-    console.log("babysitterDetails", babysitterDetails);
-
-    // Assuming `user.id` is the parent's ID and `babysitterDetails.id` is the babysitter's ID
+    if (!user || !babysitterDetails) {
+      console.error("User or babysitterDetails not defined.");
+      return;
+    }
+  
+    const isFav = user.userData.favorites.find(f => f.babysitter.id === babysitterDetails.id);
     try {
-      const FavoriteData = {
-        parentid: user.id,
-        babysitterid: babysitterDetails.id,
-      };
-
-      // Call the `addFavoriteBabysitter` function directly if adding (assuming it's available in your code)
-      const response = await addFavoriteBabysitter(
-        user.id,
-        babysitterDetails.id,
-      );
-
-      // Log the response or update state as needed
+      let response;
+      if (!isFav) {
+        response = await addFavoriteBabysitter(user.id, babysitterDetails.id);
+      } else {
+        response = await removeFavoriteBabysitter(user.id, babysitterDetails.id);
+      }
       console.log("Favorite status updated", response);
 
+      setIsFavorite(!isFav);
 
     } catch (error) {
       console.error("Error toggling favorite:", error);
-
-      // Handle error, update UI or state accordingly
-      setError("Failed to add to favorites, please try again.");
+      setError("Failed to update favorites, please try again.");
     }
   };
-
+  
   const openReviewDialog = () => {
     setReviewDialogOpen(true);
   };
 
   const closeReviewDialog = () => {
     setReviewDialogOpen(false);
-  };
-  const checkIfFavorite = async () => {
-    try {
-      const favorites = babysitterDetails?.favorites;
-      console.log("favorites", favorites);
-      if (favorites && user) {
-        const isFavorite = favorites.find(
-          (favorite) => favorite.parentid === user.id,
-        );
-        console.log("isFavorite", isFavorite);
-        return isFavorite;
-      }
-    } catch (error) {
-      console.error("Error checking if favorite:", error);
-      setError("Failed to check if favorite, please try again.");
-      throw new Error("Failed to check if favorite");
-    }
   };
 
   const handleReviewSubmit = async () => {
@@ -175,12 +162,13 @@ const BabysitterCard = (props) => {
       />
       <div className="absolute top-0 right-0 p-4">
         <Button onClick={toggleFavorite} className="mr-2">
-          {props.isFavorite ? (
+          {isFavorite ? (
             <FavoriteIcon className="text-red-500" />
           ) : (
             <FavoriteBorderIcon />
           )}
         </Button>
+
         <Button onClick={openReviewDialog} className="bg-blue-500 text-white">
           Write Review
         </Button>
