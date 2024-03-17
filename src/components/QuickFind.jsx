@@ -6,10 +6,16 @@ import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { useDataContext } from "../context/DataContext";
+import { useAuth } from "../AuthContext";
+
 
 const QuickFind = () => {
   const [time, setTime] = React.useState("10");
-
+  const { user } = useAuth();
+  console.log("user", user);
+  const childList = user?.userData?.childrens?.map((child) => child.name);
+  const { babysitters } = useDataContext();
   const handleChange = (event) => {
     setTime(event.target.value);
   };
@@ -110,17 +116,3 @@ const citiesList = [
   "Washington",
 ];
 
-const childList = [
-  "John",
-  "Doe",
-  "Jane",
-  "Doe",
-  "Michael",
-  "Jackson",
-  "John",
-  "Doe",
-  "Jane",
-  "Doe",
-  "Michael",
-  "Jackson",
-];

@@ -31,21 +31,26 @@ const BabysitterCard = (props) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const { fetchParent, fetchBabysitter, babysitters } = useDataContext();
 
+  console.log("babysitters card is in progress: ", props);
+  console.log("Babysitter object: ", props.babysitter);
+
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const babysitt = babysitters.find((b) => b.id === props.id);
+        const babysitt = babysitters.find((b) => b.id === props.babysitter.id);
         setBabysitterDetails(babysitt);
+        console.log("babysitterDetails", babysitterDetails);
       } catch (error) {
         console.error("Error fetching babysitter details:", error);
         setError(error);
       }
     };
-
-    if (props.id) {
+    console.log("use effect is in progress: ", props.babysitter);
+    if (props.babysitter) {
       fetchDetails();
     }
-  }, [props.id]);
+    // fetchDetails();
+  }, [props]);
 
   const toggleFavorite = async () => {
     console.log("user", user);
@@ -67,29 +72,7 @@ const BabysitterCard = (props) => {
       // Log the response or update state as needed
       console.log("Favorite status updated", response);
 
-      // Optionally, refresh or update the UI based on the new favorites list
-      // This might involve fetching the current favorites again or updating a local state
 
-      // Alternatively, use the fetch logic directly
-      /*
-    const result = await fetch(`${BASE_URL}/parents/${user.id}/favorites`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(FavoriteData),
-    });
-
-    console.log(result);
-
-    if (!result.ok) {
-      throw new Error("Failed to add to favorites");
-    }
-    */
-
-      // Update local state or UI based on success
-      // props.isFavorite = !props.isFavorite; // Commented out assuming this is handled elsewhere
-      // setIsFavorite(!isFavorite);
     } catch (error) {
       console.error("Error toggling favorite:", error);
 
