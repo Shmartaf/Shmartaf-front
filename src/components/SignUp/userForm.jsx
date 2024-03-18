@@ -94,8 +94,10 @@ const UserForm = () => {
   const onFinish = async (values) => {
     console.log("Received values of form: ", values);
     //check if the form have undefined values
-    if (Object.values(values).some((value) => value === undefined)) {
-      alert("Please fill all the fields");
+    const emptyFields = Object.keys(values).filter((key) => values[key] === undefined);
+    if (emptyFields.length > 0) {
+      const fields = emptyFields.join(", ");
+      alert(`The following fields are empty: ${fields}`);
       return;
     }
 
