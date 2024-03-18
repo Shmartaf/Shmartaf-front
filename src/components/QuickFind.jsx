@@ -6,10 +6,16 @@ import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { useDataContext } from "../context/DataContext";
+import { useAuth } from "../AuthContext";
+
 
 const QuickFind = () => {
   const [time, setTime] = React.useState("10");
-
+  const { user } = useAuth();
+  console.log("user", user);
+  const childList = user?.userData?.childrens?.map((child) => child.name);
+  const { babysitters } = useDataContext();
   const handleChange = (event) => {
     setTime(event.target.value);
   };
@@ -35,13 +41,6 @@ const QuickFind = () => {
           padding: "10px",
         }}
       >
-        <Autocomplete
-          disablePortal
-          id="location-combo-box"
-          options={citiesList}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Location" />}
-        />
         <Autocomplete
           disablePortal
           id="child-combo-box"
@@ -86,41 +85,3 @@ const QuickFind = () => {
   );
 };
 export default QuickFind;
-
-const citiesList = [
-  "New York",
-  "Los Angeles",
-  "Chicago",
-  "Houston",
-  "Phoenix",
-  "Philadelphia",
-  "San Antonio",
-  "San Diego",
-  "Dallas",
-  "San Jose",
-  "Austin",
-  "Jacksonville",
-  "Fort Worth",
-  "Columbus",
-  "San Francisco",
-  "Charlotte",
-  "Indianapolis",
-  "Seattle",
-  "Denver",
-  "Washington",
-];
-
-const childList = [
-  "John",
-  "Doe",
-  "Jane",
-  "Doe",
-  "Michael",
-  "Jackson",
-  "John",
-  "Doe",
-  "Jane",
-  "Doe",
-  "Michael",
-  "Jackson",
-];

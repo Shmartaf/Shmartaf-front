@@ -85,11 +85,6 @@ const parentPersonalRoutes = [
     path: "/profile",
     icon: <PersonOutlineOutlinedIcon />,
   },
-  {
-    name: "Settings",
-    path: "/settings",
-    icon: <SettingsIcon />,
-  },
 ];
 
 const babysitterPersonalRoutes = [
@@ -97,11 +92,6 @@ const babysitterPersonalRoutes = [
     name: "Profile",
     path: "/profile",
     icon: <PersonOutlineOutlinedIcon />,
-  },
-  {
-    name: "Settings",
-    path: "/settings",
-    icon: <SettingsIcon />,
   },
 ];
 

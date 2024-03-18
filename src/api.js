@@ -185,6 +185,38 @@ const addFavoriteBabysitter = async (parentId, babysitterId) => {
   }
 };
 
+const removeFavoriteBabysitter = async (parentId, babysitterId) => {
+  const url = `${BASE_URL}/parents/${parentId}/favorites/${babysitterId}`;
+  const payload = {
+    parentid: parentId,
+    babysitterid: babysitterId,
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      // If the server response is not ok, throw an error
+      throw new Error(
+        "Failed to remove favorite babysitter. Status: " + response.status,
+      );
+    }
+    const data = await response.json(); // Assuming the server responds with JSON
+    console.log("Favorite babysitter removed successfully", data);
+    return data; // Return the response data for further processing
+    } catch (error) {
+      console.error("Error removing favorite babysitter:", error);
+      throw error; // Rethrow the error for caller to handle if needed
+    }
+};
+
+
 const fetchParent = (id) => {
   return fetch(`${BASE_URL}/parents/${id}`, {
     method: "GET",
@@ -213,6 +245,7 @@ export {
   SignUp,
   get,
   addFavoriteBabysitter,
+  removeFavoriteBabysitter,
   fetchParent,
   getAll,
 };
