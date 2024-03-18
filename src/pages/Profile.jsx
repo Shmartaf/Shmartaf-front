@@ -20,21 +20,7 @@ import CustomModal from "../components/Modal";
 import EditProfileForm from "../components/EditProfileForm";
 import ChildForm from "../components/ChildForm";
 import CircularProgress from "@mui/material/CircularProgress";
-
-// const profile = {
-//   firstname: "Nurit",
-//   lastname: "Levi",
-//   phone: "058-1234567",
-//   email: "nuritlevi@me.com",
-//   location: "Rishon Lezion",
-//   address: "123 Main Street",
-//   description:
-//     "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-//   image: humanImage,
-//   tag: "6485",
-//   rating: 4.5,
-//   reviews: 100,
-// };
+import { useDataContext } from "../context/DataContext";
 
 const Settings = () => {
   const { user } = useAuth();
@@ -45,6 +31,9 @@ const Settings = () => {
   const [editProfileModalOpen, setEditProfileModalOpen] = useState(false);
   const [addChildModalOpen, setAddChildModalOpen] = useState(false);
 
+  const { babysitters, parents } = useDataContext();
+  console.log("babysitters", babysitters);
+  console.log("parents", parents);
   const openEditProfileModal = () => setEditProfileModalOpen(true);
   const closeEditProfileModal = () => setEditProfileModalOpen(false);
 
@@ -54,15 +43,20 @@ const Settings = () => {
   const fetchProfile = async () => {
     try {
       if (user && user.userData.user.userType === "babysitter") {
-        const response = await fetch(`${BASE_URL}/babysitters/${user.id}`);
-        const data = await response.json();
-        setProfile(data);
+        const babysitter = babysitters.find((b) => b.id === user.id);
+        console.log("babysitter profile data", babysitter);
+        // const response = await fetch(`${BASE_URL}/babysitters/${user.id}`);
+        // const data = await response.json();
+        // setProfile(data);
+        setProfile(babysitter);
         setLoading(false); // Set loading to false after data is fetched
       } else {
-        const response = await fetch(`${BASE_URL}/parents/${user.id}`);
-        const data = await response.json();
-        console.log(data);
-        setProfile(data);
+        // const response = await fetch(`${BASE_URL}/parents/${user.id}`);
+        // const data = await response.json();
+        // console.log(data);
+        const parent = parents.find((p) => p.id === user.id);
+        console.log("parent profile data", parent);
+        setProfile(parent);
         setLoading(false); // Set loading to false after data is fetched
       }
     } catch (error) {
@@ -146,11 +140,6 @@ const Settings = () => {
     // Handle the case when the profile is not available
     return <div>Profile not found.</div>;
   }
-  // const profile = await fatchProfile(user.id)
-  // console.log(profile)
-  // console.log(profile.data)
-  // console.log(profile['user']);
-  // console.log("Profile.user",profile.user)
   return (
     <Box
       sx={{

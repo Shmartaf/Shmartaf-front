@@ -93,11 +93,6 @@ const babysitterPersonalRoutes = [
     path: "/profile",
     icon: <PersonOutlineOutlinedIcon />,
   },
-  {
-    name: "Settings",
-    path: "/settings",
-    icon: <SettingsIcon />,
-  },
 ];
 
 const SidebarItem = ({ route, pathname }) => (

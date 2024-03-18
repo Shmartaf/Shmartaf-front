@@ -10,6 +10,8 @@ export const useDataContext = () => {
 export const DataProvider = ({ children }) => {
   const [babysitters, setBabysitters] = useState([]);
   const [parents, setParents] = useState([]);
+  const [skills, setSkills] = useState([]);
+  const [needs, setNeeds] = useState([]);
 
   const fetchParent = (id) => {
     return parents.find((parent) => parent.id === id);
@@ -25,9 +27,13 @@ export const DataProvider = ({ children }) => {
       try {
         const babysittersData = await getAll("babysitters");
         const parentsData = await getAll("parents");
+        const skillsData = await getAll("certifications");
+        const needsData = await getAll("requirements");
 
         setBabysitters(babysittersData);
         setParents(parentsData);
+        setSkills(skillsData);
+        setNeeds(needsData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -44,7 +50,7 @@ export const DataProvider = ({ children }) => {
   };
 
   return (
-    <DataContext.Provider value={{ babysitters, parents }}>
+    <DataContext.Provider value={{ babysitters, parents, skills, needs }}>
       {children}
     </DataContext.Provider>
   );

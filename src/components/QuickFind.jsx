@@ -43,13 +43,6 @@ const QuickFind = () => {
       >
         <Autocomplete
           disablePortal
-          id="location-combo-box"
-          options={citiesList}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Location" />}
-        />
-        <Autocomplete
-          disablePortal
           id="child-combo-box"
           options={childList}
           sx={{ width: 200 }}
@@ -92,27 +85,3 @@ const QuickFind = () => {
   );
 };
 export default QuickFind;
-
-const citiesList = [
-  "New York",
-  "Los Angeles",
-  "Chicago",
-  "Houston",
-  "Phoenix",
-  "Philadelphia",
-  "San Antonio",
-  "San Diego",
-  "Dallas",
-  "San Jose",
-  "Austin",
-  "Jacksonville",
-  "Fort Worth",
-  "Columbus",
-  "San Francisco",
-  "Charlotte",
-  "Indianapolis",
-  "Seattle",
-  "Denver",
-  "Washington",
-];
-

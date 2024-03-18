@@ -8,7 +8,8 @@ import Find from "./pages/Find";
 import Contacted from "./pages/Contacted";
 import Notifications from "./pages/Notifications";
 import Favorites from "./pages/Favorites";
-import Profile from "./pages/Profile";
+// import Profile from "./pages/Profile";
+import Profile from './components/Setting'
 import Settings from "./pages/Settings";
 import Schedule from "./pages/Schedule";
 import { BabysitterContext } from "./context/BabysitterContext";
@@ -32,12 +33,7 @@ function App() {
   }, [isAuthenticated]);
 
   return (
-    //<Favorites/>
-    //<Find/>
-    //<LoginPage/>
-    //isAuthenticated: Favorites
-    // <SignUp />
-    // <ParentDashboard />
+
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route
@@ -83,31 +79,6 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUp />} />
     </Routes>
-
-    /*
-    <Routes>
-      <Route
-        path="/"
-        element={
-          isAuthenticated ? (
-            <Layout>
-              <Route path="/dashboard" element={<ParentDashboard />} />
-              <Route path="/find" element={<Find />} />
-              <Route path="/contacted" element={<Contacted />} />
-              <Route path="/notifications" element={<Notifications />} />
-              <Route path="/favorites" element={<Favorites />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/settings" element={<Settings />} />
-            </Layout>
-          ) : (
-            <Navigate to="/login" state={{ from: location }} />
-          )
-        }
-      />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignUp />} />
-    </Routes>
-    */
   );
 }
 
