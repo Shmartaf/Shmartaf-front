@@ -1,7 +1,9 @@
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { Card, Typography, Box } from "@mui/material";
+import { useAuth } from "../AuthContext";
 
 const NewJobs = () => {
+  const { user } = useAuth();
   return (
     <Card
       sx={{
@@ -50,7 +52,9 @@ const NewJobs = () => {
           alignItems: "center",
         }}
       >
-        <Typography variant="h4">7</Typography>
+        <Typography variant="h4">
+          {user?.userData?.contacted.length || 0}
+        </Typography>
         <Typography
           variant="body2"
           color={"red"}
@@ -61,11 +65,11 @@ const NewJobs = () => {
             alignItems: "center",
           }}
         >
-          <ArrowDownwardIcon />
-          1.5%
+          {/* <ArrowDownwardIcon /> */}
+          {/* 1.5% */}
         </Typography>
       </Box>
-      <Typography variant="body2" color={"gray"}>
+      {/* <Typography variant="body2" color={"gray"}>
         Compared to last week
       </Typography>
       <Box
@@ -83,9 +87,9 @@ const NewJobs = () => {
         </Typography>
         <Typography variant="body2" color={"8a8a8a"}>
           16
-        </Typography>
-      </Box>
-    </Card>
+        </Typography> */}
+      {/* </Box> */}
+    </Card >
   );
 };
 export default NewJobs;

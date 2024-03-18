@@ -29,7 +29,6 @@ const WeeklyStats = () => {
       </Typography>
       <NewJobs />
       <ReviewsChart />
-      <StatsChart />
     </Box>
   );
 };

@@ -36,7 +36,7 @@ const Tables = () => {
       </Box>
       <Availability />
       <JobOpp />
-      <UpcomingEvents />
+      {/* <UpcomingEvents /> */}
     </Box>
   );
 };
