@@ -2,22 +2,7 @@
 
 import React from "react";
 import { Box, Typography, Paper, Rating } from "@mui/material";
-// import { makeStyles } from '@mui/styles';
 
-// const useStyles = makeStyles((theme) => ({
-//     reviewContainer: {
-//         padding: theme.spacing(2),
-//         marginBottom: theme.spacing(2),
-//     },
-//     ratingContainer: {
-//         display: 'flex',
-//         alignItems: 'center',
-//         marginBottom: theme.spacing(1),
-//     },
-//     comment: {
-//         marginTop: theme.spacing(1),
-//     },
-// }));
 
 const Reviews = ({ reviews }) => {
   // const classes = useStyles();
