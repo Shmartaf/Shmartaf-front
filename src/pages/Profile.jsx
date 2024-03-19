@@ -21,6 +21,7 @@ import EditProfileForm from "../components/EditProfileForm";
 import ChildForm from "../components/ChildForm";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useDataContext } from "../context/DataContext";
+import SkillTable from "../components/SkillTable";
 
 const Settings = () => {
   const { user } = useAuth();
@@ -45,15 +46,11 @@ const Settings = () => {
       if (user && user.userData.user.userType === "babysitter") {
         const babysitter = babysitters.find((b) => b.id === user.id);
         console.log("babysitter profile data", babysitter);
-        // const response = await fetch(`${BASE_URL}/babysitters/${user.id}`);
-        // const data = await response.json();
-        // setProfile(data);
+
         setProfile(babysitter);
         setLoading(false); // Set loading to false after data is fetched
       } else {
-        // const response = await fetch(`${BASE_URL}/parents/${user.id}`);
-        // const data = await response.json();
-        // console.log(data);
+
         const parent = parents.find((p) => p.id === user.id);
         console.log("parent profile data", parent);
         setProfile(parent);
@@ -197,6 +194,14 @@ const Settings = () => {
       </Typography>
 
       <Typography>{profile?.description}</Typography>
+
+      {profile.user.userType === "babysitter" && (
+        <h4>dfdfd</h4>
+        // <SkillTable skills={profile.skills} />
+
+      )}
+
+
       {/* Children table section */}
       {profile.user.userType === "parent" && profile.childrens && (
         <>
