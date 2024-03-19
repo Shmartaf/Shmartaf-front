@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Reviews from "../components/Reviews";
-
+import { useDataContext } from "../context/DataContext";
+import { BASE_URL } from "../api";
+import { useAuth } from "../AuthContext";
 // SampleData.js
 
 export const sampleReviews = [
@@ -17,21 +19,39 @@ export const sampleReviews = [
 ];
 
 const ReviewsPage = () => {
+  const { user } = useAuth();
+  const [reviews, setReviews] = useState([]);
   // Simulate fetching reviews based on user_id
   // Replace this with your actual API call
-  const fetchReviews = (user_id) => {
-    // Simulated API call with static data
-    return sampleReviews;
+  const fetchReviews = async (user_id) => {
+    try {
+      const response = await fetch(`${BASE_URL}/babysitters/${user_id}/reviews`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Reviews data:", data);
+        setReviews(data);
+        console.log("Reviews:", reviews);
+      } else {
+        console.error("Error fetching reviews:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
-
-  const [reviews, setReviews] = React.useState([]);
 
   React.useEffect(() => {
     // Assuming user_id is known or passed as a prop
-    const user_id = "123";
+    if (user && user.id) {
+      fetchReviews(user.id);
 
-    const res = fetchReviews(user_id);
-    setReviews(res);
+    }
+
+
   }, []);
 
   return (

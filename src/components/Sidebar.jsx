@@ -52,11 +52,7 @@ const babysitterRoutes = [
     path: "/dashboard",
     icon: <GridViewIcon />,
   },
-  {
-    name: "Contacted",
-    path: "/contacted",
-    icon: <PortraitIcon />,
-  },
+
   {
     name: "Notifications",
     path: "/notifications",

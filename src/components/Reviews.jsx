@@ -2,10 +2,19 @@
 
 import React from "react";
 import { Box, Typography, Paper, Rating } from "@mui/material";
-
+import { useDataContext } from "../context/DataContext";
 
 const Reviews = ({ reviews }) => {
   // const classes = useStyles();
+  const { babysitters, parents } = useDataContext();
+
+  const fetchName = (id) => {
+    const babysitter = babysitters.find((b) => b.id === id);
+    const parent = parents.find((p) => p.id === id);
+    console.log("babysitter", babysitter);
+    console.log("parent", parent);
+    return babysitter?.user.name || parent?.user.name;
+  }
 
   return (
     <div>
@@ -20,7 +29,7 @@ const Reviews = ({ reviews }) => {
               component="span"
               style={{ marginRight: "10px" }}
             >
-              {review.reviewer.name}:
+              {fetchName(review.reviewerid) || "Unknown"}:
             </Typography>
             <Rating
               name="rating"

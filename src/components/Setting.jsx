@@ -10,6 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useDataContext } from '../context/DataContext';
 import ProfileDetails from './ProfileDetails';
 import ChildrenTable from './ChildrenDetailsTable';
+import SkillTable from './SkillTable';
 
 const Settings = () => {
     const { user } = useAuth();
@@ -136,6 +137,20 @@ const Settings = () => {
         >
             {/* Render ProfileDetails component */}
             <ProfileDetails profile={profile} />
+
+            {profile.user.userType === 'babysitter' && profile.skills && (
+                <>
+                    <Typography variant="h6" mt={2}>
+                        Skills
+                    </Typography>
+                    <SkillTable template={profile.skills} />
+                    <Box mt={2} display={'flex'} gap={'10px'}>
+                        <Button variant="contained" >
+                            Edit Profile
+                        </Button>
+                    </Box>
+                </>
+            )}
 
             {/* Render ChildrenTable component for parents */}
             {profile.user.userType === 'parent' && profile.childrens && (
