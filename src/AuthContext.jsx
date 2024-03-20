@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // init();
-    if (window.location.pathname !== "/login" && window.location.pathname !== "/signup") {
+    if (!window.location.pathname.includes('/login') && !window.location.pathname.includes('/signup')) {
       if (!authState.isAuthenticated) {
         window.location.href = "/login";
       }
