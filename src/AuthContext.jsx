@@ -146,11 +146,11 @@ export const AuthProvider = ({ children }) => {
       return data;
     } catch (error) {
       console.error("Login failed", error);
-      alert("Login failed" + error);
+      alert("Wrong email or password");
       throw error;
     }
   };
-
+  
   const logout = async () => {
     try {
       const response = await supabase.auth.signOut();

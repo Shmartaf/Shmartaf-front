@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/LogIn/Header";
 import UserForm from "../components/SignUp/userForm";
 import { createSupabaseClient } from "../lib/supabaseClient";
 import { addUser, addBabysitter, addParent, addChildren } from "../api";
 import { useNavigate } from "react-router-dom";
 import Moment from "moment";
+import CircularProgress from "@mui/material/CircularProgress";
+
 const SignupPage = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true); // Initialize loading state
+
+  useEffect(() => {
+    // Simulate an async operation like fetching data or waiting for something to load
+    const timer = setTimeout(() => {
+      setLoading(false); // Set loading to false after the operation is complete
+    }, 2000); // Adjust the timeout duration as needed
+
+    return () => clearTimeout(timer); // Cleanup the timer
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center" style={{ minHeight: "100vh" }}>
+        <CircularProgress />
+      </div>
+    );
+  }
+
   return (
     <section
       className="bg-gray-50 dark:bg-gray-900"
